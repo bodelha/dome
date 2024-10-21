@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "dome-api"
+version = "0.1.0"
+description = "Aplicação para monitoramento de condições de uma estufa"
+authors = ["isabela Oliveira <bodelha@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^3.0.3"
+marshmallow = "^3.23.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
