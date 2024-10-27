@@ -1,0 +1,56 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "time": {
+        "type": "integer",
+        "description": "Timestamp em formato epoch",
+        "minimum": 0,
+        "example": 1730057080
+      },
+      "internalHumidity": {
+        "type": "number",
+        "format": "decimal",
+        "description": "Umidade interna em percentagem",
+        "minimum": 0.0,
+        "maximum": 100.0,
+        "example": 70.8
+      },
+      "externalHumidity": {
+        "type": "number",
+        "format": "decimal",
+        "description": "Umidade externa em percentagem",
+        "minimum": 0.0,
+        "maximum": 100.0,
+        "example": 23.6
+      },
+      "internalTemperature": {
+        "type": "number",
+        "format": "decimal",
+        "description": "Temperatura interna em graus Celsius",
+        "example": 45.2
+      },
+      "externalTemperature": {
+        "type": "number",
+        "format": "decimal",
+        "description": "Temperatura externa em graus Celsius",
+        "example": 21.9
+      },
+      "luminosity": {
+        "type": "number",
+        "description": "Nível de luminosidade",
+        "minimum": 0,
+        "maximum": 1023,
+        "example": 800
+      },
+      "batteryLevel": {
+        "type": "number",
+        "format": "decimal",
+        "description": "Nível da bateria em percentagem",
+        "minimum": 0.0,
+        "maximum": 100.0,
+        "example": 42.1
+      }
+    },
+    "required": ["time", "internalHumidity", "externalHumidity", "internalTemperature", "externalTemperature", "luminosity"]
+  }

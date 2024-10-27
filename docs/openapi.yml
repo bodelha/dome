@@ -1,0 +1,33 @@
+openapi: 3.0.3
+
+info:
+  title: Dome API
+  version: 1.0.0
+  description: API to intermediate communication between IoT sensors and database, as well serving as a back-end to the Dome Application.
+
+servers:
+  - url: http://localhost:5000
+
+components:
+  schemas:
+    SensorMeasurementV1:
+      $ref: 'sensor_measurement_v1.json'
+
+paths:
+  /v1/measurements:
+    post:
+      summary: Receives sensors measurements to be persisted in database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SensorMeasurementV1'
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+        
