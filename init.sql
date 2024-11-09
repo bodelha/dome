@@ -1,5 +1,3 @@
-CREATE DATABASE estufa_001;
-
 \c estufa_001;
 
 CREATE TABLE sensors_catalog (
@@ -13,10 +11,10 @@ CREATE TABLE sensors_catalog (
 );
 
 CREATE TABLE humidity (
-    id INTEGER REFERENCES sensors_catalog(id),
+    sensor_id INTEGER REFERENCES sensors_catalog(id),
     event_time_unix BIGINT NOT NULL,
     humidity NUMERIC(5,2) NOT NULL CHECK (humidity BETWEEN 0 AND 100),
-    PRIMARY KEY (id, event_time_unix)
+    PRIMARY KEY (sensor_id, event_time_unix)
 );
 
 CREATE TABLE temperature (
