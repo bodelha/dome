@@ -75,6 +75,14 @@ paths:
           schema:
             type: string
             example: "internalTemperature, luminosity"
+        - name: limit
+          in: query
+          description: "Número máximo de registros a serem retornados para cada campo."
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            example: 10
       responses:
         '200':
           description: Dados dos sensores

@@ -34,6 +34,25 @@ class SensorMeasurementV1Schema(Schema):
     )
 
 
+class SensorExposureV1Schema(Schema):
+    time = fields.List(
+        fields.Integer(required=True, strict=True),
+        description="Timestamp em formato epoch",
+    )
+    internalHumidity = fields.List(
+        fields.Float(), description="Umidade interna em percentagem"
+    )
+    externalHumidity = fields.List(
+        fields.Float(), description="Umidade externa em percentagem"
+    )
+    internalTemperature = fields.List(
+        fields.Float(), description="Temperatura interna em graus Celsius"
+    )
+    externalTemperature = fields.List(
+        fields.Float(), description="Temperatura externa em graus Celsius"
+    )
+    luminosity = fields.List(fields.Float(), description="Nível de luminosidade")
+
 
 def handle_validation_error(err):
     error_messages = []
