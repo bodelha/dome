@@ -4,11 +4,11 @@ from schema import HelloWorldSchema, SensorMeasurementV1Schema, handle_validatio
 from db import Database
 
 app = Flask(__name__)
-app.logger.setLevel('DEBUG')
+app.logger.setLevel("DEBUG")
 db = Database()
 
 
-@app.route('/v1/measurements', methods=['POST'])
+@app.route("/v1/measurements", methods=["POST"])
 def receive_measurements():
     schema = SensorMeasurementV1Schema()
     try:
@@ -27,17 +27,23 @@ def receive_measurements():
             db.execute(insertion_query, (identifier, data["time"], data[field]))
         db.conn.commit()
         db.close()
-        return jsonify({"message": "Medições recebidas e salvas com sucesso!", "data": data}), 201
+        return (
+            jsonify(
+                {"message": "Medições recebidas e salvas com sucesso!", "data": data}
+            ),
+            201,
+        )
     except ValidationError as err:
         return handle_validation_error(err)
     except Exception as e:
         app.logger.exception(f"An error occurred while persisting data: {e}")
         return jsonify({"message": "Erro ao salvar os dados."}), 500
 
-@app.route('/v1/measurements', methods=['GET'])
+
+@app.route("/v1/measurements", methods=["GET"])
 def get_measurements():
-    limit = request.args.get('limit', default=10, type=int)
-    offset = request.args.get('offset', default=0, type=int)
+    limit = request.args.get("limit", default=10, type=int)
+    offset = request.args.get("offset", default=0, type=int)
 
     try:
         db.connect()
@@ -75,7 +81,7 @@ def get_measurements():
                 "externalHumidity": entry[2],
                 "internalTemperature": entry[3],
                 "externalTemperature": entry[4],
-                "luminosity": entry[5]
+                "luminosity": entry[5],
             }
             formatted_measurements.append(formatted_measurement)
 
@@ -94,16 +100,16 @@ def get_measurements():
         return jsonify({"message": "Erro ao recuperar os dados."}), 500
 
 
-@app.route('/', methods=['GET'])
+@app.route("/", methods=["GET"])
 def hello_world():
     response_data = {"message": "Hello, World!"}
-    
+
     schema = HelloWorldSchema()
     result = schema.dump(response_data)
 
     return jsonify(result)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     app.run(host="0.0.0.0", port=5000, debug=True)

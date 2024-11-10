@@ -1,9 +1,10 @@
 import psycopg2
 import os
 
+
 class Database:
     def __init__(self):
-        self.database_url = os.environ.get('DATABASE_URL')
+        self.database_url = os.environ.get("DATABASE_URL")
         self.conn = None
 
     def connect(self):
