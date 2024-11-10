@@ -12,6 +12,8 @@ components:
   schemas:
     SensorMeasurementV1:
       $ref: 'sensor_measurement_v1.json'
+    SensorExposureV1:
+      $ref: 'sensor_exposure_v1.json'
 
 paths:
   /v1/measurements:
@@ -58,6 +60,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SensorMeasurementV1'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+  /v1/sensor-data:
+    get:
+      summary: Obter dados de sensores, focado na construção de gráficos
+      parameters:
+        - name: fields
+          in: query
+          description: "Campos a serem retornados. Exemplo: internalTemperature, luminosity. Se não especificado, todos os campos são retornados."
+          required: false
+          schema:
+            type: string
+            example: "internalTemperature, luminosity"
+      responses:
+        '200':
+          description: Dados dos sensores
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorExposureV1'
         '400':
           description: Bad Request
         '500':

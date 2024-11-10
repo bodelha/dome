@@ -1,0 +1,65 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "time": {
+            "type": "array",
+            "items": {
+                "type": "integer",
+                "description": "Timestamp em formato epoch",
+                "minimum": 0,
+                "example": 1730057080
+            }
+        },
+        "internalHumidity": {
+            "type": "array",
+            "items": {
+                "type": "number",
+                "format": "decimal",
+                "description": "Umidade interna em percentagem",
+                "minimum": 0.0,
+                "maximum": 100.0,
+                "example": 70.8
+            }
+        },
+        "externalHumidity": {
+            "type": "array",
+            "items": {
+                "type": "number",
+                "format": "decimal",
+                "description": "Umidade externa em percentagem",
+                "minimum": 0.0,
+                "maximum": 100.0,
+                "example": 23.6
+            }
+        },
+        "internalTemperature": {
+            "type": "array",
+            "items": {
+                "type": "number",
+                "format": "decimal",
+                "description": "Temperatura interna em graus Celsius",
+                "example": 45.2
+            }
+        },
+        "externalTemperature": {
+            "type": "array",
+            "items": {
+                "type": "number",
+                "format": "decimal",
+                "description": "Temperatura externa em graus Celsius",
+                "example": 21.9
+            }
+        },
+        "luminosity": {
+            "type": "array",
+            "items": {
+                "type": "number",
+                "description": "Nível de luminosidade",
+                "minimum": 0,
+                "maximum": 1023,
+                "example": 800
+            }
+        }
+    }
+}
