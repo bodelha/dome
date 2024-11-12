@@ -1,9 +1,21 @@
 import React from 'react';
 import { Box, AppBar, Toolbar, Typography, Container, Link } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
+import AssessmentIcon from '@mui/icons-material/Assessment';
 import IconButton from '@mui/material/IconButton';
+import { useNavigate } from 'react-router-dom';
 
 const Sobre = () => {
+    const navigate = useNavigate();
+
+    const handleLoginNavigate = () => {
+        navigate('/login');
+    };
+
+    const handleDataNavigate = () => {
+        navigate('/dados');
+    };
+
     return (
         <Box sx={{ backgroundColor: 'background.default', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <AppBar position="static" color="primary" sx={{ boxShadow: 'none' }}>
@@ -22,11 +34,20 @@ const Sobre = () => {
                             Dome
                         </Typography>
                     </Link>
-                    <Link href="/login" color="inherit">
-                        <IconButton color="inherit" sx={{ lineHeight: '64px' }}>
+                    <Box>
+                        <IconButton
+                            color="inherit"
+                            sx={{ marginRight: 2, '&:hover': { backgroundColor: 'transparent' } }}
+                            disableRipple
+                            onClick={handleDataNavigate}
+                        >
+                            <AssessmentIcon sx={{ marginRight: 1 }} />
+                            <Typography variant="body2">Dados</Typography>
+                        </IconButton>
+                        <IconButton color="inherit" onClick={handleLoginNavigate}>
                             <PersonIcon />
                         </IconButton>
-                    </Link>
+                    </Box>
                 </Toolbar>
             </AppBar>
 

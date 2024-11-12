@@ -2,12 +2,12 @@ import React from 'react';
 import { Typography, TextField, Button, Grid } from '@mui/material';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Cadastro = () => {
     const navigate = useNavigate();
 
     const handleLogin = (e) => {
         e.preventDefault();
-        navigate('/');
+        navigate('/login');
     };
 
     return (
@@ -36,16 +36,12 @@ const Login = () => {
                     Dome
                 </Typography>
 
-                <Typography variant="h4" gutterBottom sx={{ marginBottom: 2, textAlign: 'center' }}>
-                    Bem-vindo de volta!
+                <Typography variant="h4" gutterBottom sx={{ textAlign: 'center' }}>
+                    Bem-vindo!
                 </Typography>
 
-                <Typography variant="body1" gutterBottom sx={{ marginBottom: 1, textAlign: 'center' }}>
-                    Faça login na sua conta para continuar.
-                </Typography>
-
-                <NavLink to="/cadastro" style={{ textDecoration: 'none' }}>
-                    Não possui conta? Clique aqui
+                <NavLink to="/login" style={{ textDecoration: 'none' }}>
+                    Possui conta? Clique aqui
                 </NavLink>
 
                 <form onSubmit={handleLogin} style={{ width: '100%', maxWidth: '400px' }}>
@@ -64,10 +60,19 @@ const Login = () => {
                         fullWidth
                         margin="normal"
                         required
+                        sx={{ marginBottom: 1 }}
+                    />
+                    <TextField
+                        label="Confirmar Senha"
+                        variant="outlined"
+                        type="password"
+                        fullWidth
+                        margin="normal"
+                        required
                         sx={{ marginBottom: 3 }}
                     />
                     <Button type="submit" variant="contained" color="primary" fullWidth>
-                        Login
+                        Cadastre-se
                     </Button>
                 </form>
             </Grid>
@@ -75,4 +80,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Cadastro;
