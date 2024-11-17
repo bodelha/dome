@@ -1,5 +1,6 @@
 from flask import request, jsonify
 from db import Database
+from schema import SensorExposureV1Schema
 
 
 def get_sensor_data():
@@ -79,7 +80,10 @@ def get_sensor_data():
         for field in fields:
             formatted_data[field] = [entry.get(field) for entry in data]
 
-        return jsonify(formatted_data)
+        schema = SensorExposureV1Schema()
+        validated_data = schema.dump(formatted_data)
+
+        return jsonify(validated_data), 200
 
     except Exception as e:
         db.close()

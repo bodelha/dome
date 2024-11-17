@@ -54,12 +54,14 @@ class SensorExposureV1Schema(Schema):
     luminosity = fields.List(fields.Float(), description="Nível de luminosidade")
 
 
+class HealthCheckSchema(Schema):
+    status = fields.Str(required=True)
+    database = fields.Str(required=True)
+    message = fields.Str(required=True)
+
+
 def handle_validation_error(err):
     error_messages = []
     for field, messages in err.messages.items():
         error_messages.append(f"Field '{field}': {', '.join(messages)}")
     return {"errors": error_messages}, 400
-
-
-class HelloWorldSchema(Schema):
-    message = fields.Str()
