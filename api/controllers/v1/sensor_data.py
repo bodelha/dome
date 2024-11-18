@@ -1,10 +1,13 @@
 from flask import request, jsonify
 from db import Database
 from schema import SensorExposureV1Schema
+from cache import Cache
+from utils import logger
 
 
 def get_sensor_data():
     db = Database()
+    cache = Cache()
     fields = request.args.get("fields", None)
     limit = request.args.get("limit", 60, type=int)
     fields = (
@@ -20,6 +23,12 @@ def get_sensor_data():
     )
 
     try:
+        cache_key = f"sensor-data:fields:{','.join(fields)}:limit:{limit}"
+
+        cached_data = cache.get(cache_key)
+        if cached_data:
+            return jsonify(cached_data), 200
+
         db.connect()
 
         field_mapping = {
@@ -27,12 +36,16 @@ def get_sensor_data():
             "externalHumidity": "MAX(CASE WHEN sensor_name = 'externalHumidity' THEN value END) AS \"externalHumidity\"",
             "internalTemperature": "MAX(CASE WHEN sensor_name = 'internalTemperature' THEN value END) AS \"internalTemperature\"",
             "externalTemperature": "MAX(CASE WHEN sensor_name = 'externalTemperature' THEN value END) AS \"externalTemperature\"",
-            "luminosity": "MAX(CASE WHEN sensor_name = 'luminosity' THEN value END) AS \"luminosity\""
+            "luminosity": "MAX(CASE WHEN sensor_name = 'luminosity' THEN value END) AS \"luminosity\"",
         }
 
-        selected_fields = ", ".join([field_mapping[field] for field in fields if field in field_mapping])
+        selected_fields = ", ".join(
+            [field_mapping[field] for field in fields if field in field_mapping]
+        )
 
-        json_fields = ", ".join([f"'{field}', aggregated_data.\"{field}\"" for field in fields])
+        json_fields = ", ".join(
+            [f"'{field}', aggregated_data.\"{field}\"" for field in fields]
+        )
 
         query = f"""
             WITH sensor_data AS (
@@ -83,10 +96,13 @@ def get_sensor_data():
         schema = SensorExposureV1Schema()
         validated_data = schema.dump(formatted_data)
 
+        cache.set(cache_key, validated_data, expire=45)
+
         return jsonify(validated_data), 200
 
     except Exception as e:
+        logger.error(f"Erro ao recuperar dados: {e}")
         db.close()
-        raise e
+        return jsonify({"message": "Erro interno ao recuperar os dados."}), 500
     finally:
         db.close()
