@@ -51,11 +51,15 @@ const Dados = () => {
                 </Toolbar>
             </AppBar>
 
-            <Container maxWidth="lg" sx={{ flex: 1, padding: 2 }}>
-                <Typography variant="h2" color="secondary.dark" fontWeight="light" gutterBottom>
-                    Dados da nossa aplicação:
+            <Container maxWidth="lg" align="center" sx={{ flex: 1, padding: 2 }}>
+                <Typography variant="h2" align="center" color="secondary.dark" gutterBottom>
+                    Dados da nossa aplicação
                 </Typography>
-                <Box sx={{ height: '500px', border: '1px solid #ccc' }}>
+                <Box sx={{ 
+                    height: '520px', 
+                    width: '810px',
+                    border: '2px solid #D6D58E'
+                    }}>
                     <iframe
                         title="Relatório do Power BI"
                         src="https://app.powerbi.com/view?r=eyJrIjoiMTE5ZTU4NDYtOTc0OS00MDQyLTkwMzctMGYxZGVmODU2YTFmIiwidCI6ImNmNzJlMmJkLTdhMmItNDc4My1iZGViLTM5ZDU3YjA3Zjc2ZiIsImMiOjR9"
