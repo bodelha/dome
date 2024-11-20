@@ -53,7 +53,9 @@ git submodule update
 ```
 
 ### Rodando a aplicação
+
 Com a extensão do [Wokwi](https://marketplace.visualstudio.com/items?itemName=Wokwi.wokwi-vscode) instalada e configurada com licença ativa, bem como o platformio funcionado:
+
 1. Renomeie o arquivo `ESP32/src/config.example.h` para o diretório `ESP32/src/config.h`
 2. Digite `cd ESP32` e tecle Enter
 3. Digite `paltformio run` ou `pio run` e aperte Enter
@@ -61,6 +63,16 @@ Com a extensão do [Wokwi](https://marketplace.visualstudio.com/items?itemName=W
 5. Ajuste o `.env.sample`, no mínimo renomeando para `.env`,
 6. Em outro terminal, no root do projeto, execute `docker compose up -d`
 
+Esse comando vai subir:
+
+- banco de dados relacional postgresql para persistência dos dados
+- "banco" chave-valor memcache para cacheamento
+- backend feito em Python exposto na porta 5000
+- frontend construído com React diponível na porta 3000
+- um broker mosquitto, em que o ESP32 publica mensagens
+- um serviço "gateway" que consome as mensagens do MQTT e converte para o formato da API, fazendo requests POST e persistindo os dados.
+
+Para minimizar as depêndencias com o wokwi e potenciais problemas de rede, uma série de dados é gerada durante o build da aplicação caso `ENV=development` no `.env`. Pela natureza do script e o fato de serem gerados dados para cada um minuto dos últimos 3 meses, a aplicação não fica estável e disponível instantaneamente.
 
 
 ### Desenvolvedores
