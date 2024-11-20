@@ -48,7 +48,20 @@ A simulação é feita com o Wokwi, que permite a criação de um ambiente virtu
 ```bash
 git clone https://github.com/bodelha/dome.git
 cd dome
+git submodule init
+git submodule update
 ```
+
+### Rodando a aplicação
+Com a extensão do [Wokwi](https://marketplace.visualstudio.com/items?itemName=Wokwi.wokwi-vscode) instalada e configurada com licença ativa, bem como o platformio funcionado:
+1. Renomeie o arquivo `ESP32/src/config.example.h` para o diretório `ESP32/src/config.h`
+2. Digite `cd ESP32` e tecle Enter
+3. Digite `paltformio run` ou `pio run` e aperte Enter
+4. Aperte F1 e Selecione a opção `Wokwi: Start Simulator` ou abra o `diagram.json`
+5. Ajuste o `.env.sample`, no mínimo renomeando para `.env`,
+6. Em outro terminal, no root do projeto, execute `docker compose up -d`
+
+
 
 ### Desenvolvedores
 
