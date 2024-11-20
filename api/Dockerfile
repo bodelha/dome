@@ -4,14 +4,14 @@ WORKDIR /app
 
 RUN pip install poetry
 
-COPY pyproject.toml pyproject.toml
-COPY poetry.lock poetry.lock
+COPY ./api/pyproject.toml ./api/poetry.lock ./
 
 RUN poetry config virtualenvs.create false
 RUN poetry install --no-dev
 
-COPY . .
+COPY ./api /app/api
+COPY ./docs /app/docs
 
 EXPOSE 5000
 
-CMD ["poetry", "run", "python", "app.py"]
+CMD ["poetry", "run", "python", "api/app.py"]

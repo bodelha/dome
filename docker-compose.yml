@@ -30,7 +30,9 @@ services:
       - API_URL=http://api:5000
   
   api:
-    build: ./api
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile
     ports:
       - "5000:5000"
     depends_on:
